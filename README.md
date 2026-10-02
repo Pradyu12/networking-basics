@@ -13,6 +13,11 @@ HTML5, CSS3, vanilla JavaScript and SVG — no frameworks, no backend.
 > 📖 **New:** [STUDY-GUIDE.md](STUDY-GUIDE.md) — read this to learn the material and
 > explain it. It explains *why* each slide says what it says, plus the analogies,
 > anticipated audience questions with short answers, and delivery notes.
+>
+> 🖨️ [Networking-Basics-Handout.pdf](Networking-Basics-Handout.pdf) — printable
+> 46-page A4 prep pack: one page per slide (diagram, bullets, speaker notes and
+> analogy) plus the whole study guide as an appendix. Regenerate it with
+> `node scripts/make-pdf.js`.
 
 ## 🚀 Quick Start
 
@@ -41,6 +46,7 @@ The notes button (bottom right) shows speaker notes for the current slide.
 networking-presentation/
 ├── index.html                  # Entry point
 ├── STUDY-GUIDE.md              # Study material: read/learn/explain the deck
+├── Networking-Basics-Handout.pdf  # GENERATED: 46-page printable prep pack
 ├── css/
 │   ├── main.css                # Design system & layout
 │   ├── animations.css          # Transitions, keyframes & diagram motion
@@ -70,7 +76,14 @@ slide order.
 ```bash
 node scripts/generate-drawio.js   # 1. rebuild networking-diagrams.drawio
 node scripts/export-svgs.js       # 2. export -> assets/diagrams/*.svg + diagram-svgs.js
+node scripts/make-pdf.js          # 3. build the printable handout PDF
 ```
+
+`make-pdf.js` renders each slide to a print-optimised HTML page and prints it
+with headless Chromium, so the PDF matches the live deck exactly. It looks for a
+Chromium/Chrome binary in the usual system paths and in the Playwright and
+Puppeteer caches; if neither is installed the script says so and exits rather
+than producing a broken file.
 
 `export-svgs.js` needs the draw.io desktop CLI and a display; set `DRAWIO_BIN` if
 it is not at `/snap/bin/drawio`. It exports with `-t --size page --theme light`,
