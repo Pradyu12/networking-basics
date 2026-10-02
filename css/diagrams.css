@@ -1,0 +1,156 @@
+/* Network Diagram Styles */
+
+.diagram-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  aspect-ratio: 800 / 460;
+  min-height: 200px;
+  max-height: min(46vh, 420px);
+  margin: 0 auto;
+}
+/* Two-column layout: the diagram column may use more vertical space */
+.slide-cols .diagram-container { max-height: min(54vh, 480px); }
+/* Title slide: title + subtitle + diagram must share one screen */
+.visual.title-visual .diagram-container { max-height: min(46vh, 440px); }
+
+.network-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* — Device Icons — */
+.device {
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+.device:hover { filter: brightness(1.2); }
+
+.device-pc { fill: #3b82f6; }
+.device-server { fill: #a855f7; }
+.device-router { fill: #10b981; }
+.device-switch { fill: #f59e0b; }
+.device-ap { fill: #06b6d4; }
+.device-firewall { fill: #ef4444; }
+.device-cloud { fill: rgba(59,130,246,0.3); }
+.device-database { fill: #8b5cf6; }
+.device-phone { fill: #14b8a3; }
+.device-laptop { fill: #60a5fa; }
+
+/* — Connection Lines — */
+.connection {
+  stroke: var(--line-network);
+  stroke-width: 2;
+  fill: none;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+.connection.active {
+  stroke: var(--primary);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 4px var(--primary));
+}
+.connection.dashed { stroke-dasharray: 8, 4; }
+
+/* — Packet Animation — */
+.packet {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 6px var(--cyan));
+  transition: transform 0.05s linear;
+}
+.packet.glow {
+  animation: pulseGlow 0.5s ease-in-out;
+}
+
+/* — Highlight Overlay — */
+.highlight-box {
+  position: absolute;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.1);
+  pointer-events: none;
+}
+
+/* — Grid for topology backgrounds — */
+.topology-grid {
+  stroke: rgba(59, 130, 246, 0.1);
+  stroke-width: 0.5;
+}
+
+/* — VLAN Tags — */
+.vlan-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  fill: var(--text-muted);
+}
+
+/* — Device Labels — */
+.device-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  fill: var(--text-dim);
+  text-anchor: middle;
+}
+
+/* — Layer Boxes (OSI) — */
+.layer-box {
+  fill: rgba(15, 23, 42, 0.7);
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.layer-box.active {
+  fill: rgba(59, 130, 246, 0.2);
+  stroke: var(--primary);
+  stroke-width: 2;
+}
+.layer-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  fill: var(--text-muted);
+}
+.layer-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--primary);
+}
+.layer-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  fill: var(--text-dim);
+}
+
+/* — Terminal Style — */
+.terminal {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 1em;
+  color: var(--cyan);
+  overflow-x: auto;
+  min-height: 100px;
+}
+.terminal .prompt { color: var(--warning); }
+.terminal .output { color: var(--text-dim); }
+.terminal .error { color: var(--danger); }
+
+/* — Height tiers: never let a diagram push a slide past the fold — */
+@media (max-height: 820px) {
+  .diagram-container { max-height: min(40vh, 330px); }
+  .slide-cols .diagram-container { max-height: min(44vh, 360px); }
+}
+@media (max-height: 700px) {
+  .diagram-container { max-height: min(32vh, 250px); }
+  .slide-cols .diagram-container { max-height: min(36vh, 280px); }
+}
+/* Narrow screens: stacked layout, cap the diagram */
+@media (max-width: 768px) {
+  .diagram-container { max-height: min(34vh, 340px); }
+  .slide-cols .diagram-container { max-height: min(34vh, 340px); }
+}

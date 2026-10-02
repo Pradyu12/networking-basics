@@ -1,0 +1,177 @@
+/* Animations for Network Presentation */
+
+/* — Slide transitions — */
+.slide {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* — Element entrance (staggered) — */
+.animate-on-load .eyebrow,
+.animate-on-load .section-title,
+.animate-on-load .body-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate-on-load .eyebrow { transition-delay: 0.1s; }
+.animate-on-load .section-title { transition-delay: 0.2s; }
+.animate-on-load .body-text { transition-delay: 0.3s; }
+
+/* — Pulse glow for active network nodes — */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(6, 183, 214, 0.6); }
+}
+.node-active { animation: pulseGlow 2s ease-in-out infinite; }
+
+@keyframes pulseCyan {
+  0%, 100% { box-shadow: 0 0 8px rgba(6, 183, 214, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(6, 183, 214, 0.8); }
+}
+.node-active-cyan { animation: pulseCyan 2s ease-in-out infinite; }
+
+/* — Packet movement along path — */
+@keyframes movePacket {
+  0% { transform: translate(0, 0); opacity: 1; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: var(--target-pos, translate(0, 0)); opacity: 0; }
+}
+.packet-animating { animation: movePacket 2s linear infinite; }
+
+/* — Blink for traffic lights — */
+@keyframes blink {
+  0%, 50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+.blink-slow { animation: blink 1.5s ease-in-out infinite; }
+
+/* — Line draw effect for network cables — */
+@keyframes drawLine {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+.line-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 1s ease-in-out forwards;
+}
+
+/* — Stagger children — */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.stagger-children.animate > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger-children.animate > *:nth-child(2) { transition-delay: 0.10s; }
+.stagger-children.animate > *:nth-child(3) { transition-delay: 0.15s; }
+.stagger-children.animate > *:nth-child(4) { transition-delay: 0.20s; }
+.stagger-children.animate > *:nth-child(5) { transition-delay: 0.25s; }
+.stagger-children.animate > *:nth-child(6) { transition-delay: 0.30s; }
+.stagger-children.animate > *:nth-child(7) { transition-delay: 0.35s; }
+.stagger-children.animate > *:nth-child(8) { transition-delay: 0.40s; }
+.stagger-children.animate > *:nth-child(9) { transition-delay: 0.45s; }
+.stagger-children.animate > *:nth-child(10) { transition-delay: 0.50s; }
+.stagger-children.animate > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* — Fade in — */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* — Float subtle — */
+.float-slow {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* — Highlight pulse (for emphasis) — */
+@keyframes highlightPulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; filter: brightness(1.3); }
+  100% { opacity: 0.3; }
+}
+.highlight-pulse {
+  animation: highlightPulse 2s ease-in-out 2;
+}
+
+/* — Counter animation for numbers — */
+@keyframes countUp {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+.count-up { animation: countUp 0.6s ease-out forwards; }
+
+/* ==================================================================
+   DIAGRAM MOTION — the small, ambient life inside every diagram
+   ------------------------------------------------------------------
+   draw.io exports carry class="edge" on connector paths only (shapes are
+   rect/ellipse and text is foreignObject), so these rules can never
+   accidentally animate a box outline or a label. Everything here is slow
+   and low-contrast: the diagrams must stay readable first.
+   ================================================================== */
+
+/* A slow dash drifting along each connector reads as "traffic moving".
+   The offset animates a negative distance so the dashes travel forward. */
+@keyframes edgeDashFlow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -36; }
+}
+.network-svg path.edge {
+  stroke-dasharray: 9 9;
+  animation: edgeDashFlow 1.8s linear infinite;
+}
+
+/* Not every link should look busy: connectors already authored as plain
+   solid lines (cables, trunks) keep a slower, subtler drift. */
+.network-svg path.edge[stroke-width="1"] {
+  stroke-dasharray: 6 12;
+  animation-duration: 2.6s;
+}
+
+/* A single soft breathing glow on the whole drawing. Scale from the
+   centre so the diagram appears to settle in rather than drift. */
+@keyframes diagramBreathe {
+  0%, 100% { opacity: 0.92; }
+  50%      { opacity: 1; }
+}
+.diagram-container .network-svg {
+  animation: diagramBreathe 6s ease-in-out infinite;
+}
+
+/* The travelling packets (injected by export-svgs.js) get a soft halo
+   and are hidden again the moment a slide is not on screen. */
+.network-svg circle.packet {
+  filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.9));
+}
+
+/* — Reduced motion overrides — */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-load *, .stagger-children *, .fade-in, .float-slow,
+  .blink-slow, .pulse-glow, .packet-animating, .highlight-pulse, .count-up,
+  .network-svg path.edge, .diagram-container .network-svg {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

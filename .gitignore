@@ -1,0 +1,14 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Node
+node_modules/
+
+# Local render/screenshot scratch (regenerate as needed)
+.shots/
+
+# Logs
+*.log
