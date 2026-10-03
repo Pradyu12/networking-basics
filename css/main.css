@@ -27,7 +27,7 @@
   --glow-md: 0 0 16px rgba(59, 130, 246, 0.6);
   --glow-lg: 0 0 32px rgba(59, 130, 246, 0.8);
   --slide-padding: calc(56px + 2vh) clamp(24px, 5vw, 72px) calc(52px + 3vh);
-  --slide-max-width: 1400px;
+  --slide-max-width: 1500px;
   --transition-fast: 0.2s ease;
   --transition-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }

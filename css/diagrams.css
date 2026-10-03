@@ -3,17 +3,27 @@
 .diagram-container {
   position: relative;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1280px;
   height: auto;
   aspect-ratio: 800 / 460;
-  min-height: 260px;
-  max-height: min(60vh, 560px);
+  min-height: 300px;
+  max-height: min(66vh, 640px);
   margin: 0 auto;
+  filter: drop-shadow(0 8px 28px rgba(2, 6, 23, 0.55));
 }
-/* Two-column layout: the diagram column may use more vertical space */
-.slide-cols .diagram-container { max-height: min(62vh, 600px); }
+/* Two-column layout: give the diagram most of the room */
+.slide-cols { grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.5fr); column-gap: clamp(1rem, 2.2vw, 2.2rem); }
+.slide-cols .diagram-container { max-height: min(70vh, 680px); }
 /* Title slide: title + subtitle + diagram must share one screen */
-.visual.title-visual .diagram-container { max-height: min(56vh, 560px); }
+.visual.title-visual .diagram-container { max-height: min(62vh, 640px); }
+
+/* draw.io text is HTML in foreignObject: scale it up with the new, larger box */
+.network-svg foreignObject div[style*="font-size: 17px"] > div { font-size: 20px !important; }
+.network-svg foreignObject div[style*="font-size: 15px"] > div { font-size: 17px !important; }
+.network-svg foreignObject div[style*="font-size: 13px"] > div { font-size: 15px !important; }
+.network-svg foreignObject div[style*="font-size: 12px"] > div { font-size: 14px !important; }
+.network-svg foreignObject div[style*="font-size: 11px"] > div { font-size: 13px !important; }
+.network-svg foreignObject div[style*="font-size: 10px"] > div { font-size: 12px !important; }
 
 .network-svg {
   width: 100%;
@@ -142,15 +152,15 @@
 
 /* — Height tiers: never let a diagram push a slide past the fold — */
 @media (max-height: 820px) {
-  .diagram-container { max-height: min(52vh, 430px); }
-  .slide-cols .diagram-container { max-height: min(54vh, 460px); }
+  .diagram-container { max-height: min(58vh, 500px); }
+  .slide-cols .diagram-container { max-height: min(60vh, 540px); }
 }
 @media (max-height: 700px) {
-  .diagram-container { max-height: min(42vh, 330px); }
-  .slide-cols .diagram-container { max-height: min(46vh, 360px); }
+  .diagram-container { max-height: min(48vh, 390px); }
+  .slide-cols .diagram-container { max-height: min(52vh, 430px); }
 }
 /* Narrow screens: stacked layout, cap the diagram */
 @media (max-width: 768px) {
-  .diagram-container { max-height: min(42vh, 420px); }
-  .slide-cols .diagram-container { max-height: min(42vh, 420px); }
+  .diagram-container { max-height: min(48vh, 480px); }
+  .slide-cols .diagram-container { max-height: min(48vh, 480px); }
 }
