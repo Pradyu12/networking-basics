@@ -306,27 +306,28 @@ function pageComponents() {
 
 /* ===================== Additional pages (all remaining deck diagrams) ===================== */
 
-/* networkScale: PAN -> Internet, widening circles of reach */
+/* networkScale: PAN -> Internet, widening circles of reach.
+   One text vertex per row (name + desc stacked with <br/>): two stacked vertices
+   on the exact same box renders the rows on top of each other. */
 function pageNetworkScale() {
   const c = [];
   const rows = [
-    ['PAN', 'Personal Area Network', 'Bluetooth, near you', C.cyan, 120],
-    ['LAN', 'Local Area Network', 'Building or home', C.primary, 200],
-    ['WLAN', 'Wireless LAN', 'Same, no cables', C.violet, 280],
-    ['MAN', 'Metropolitan Area', 'One city', C.green, 360],
-    ['WAN', 'Wide Area Network', 'Across countries', C.amber, 440],
-    ['Internet', 'Global network of networks', 'The whole planet', C.purple, 520]
+    ['PAN', 'Personal Area Network — Bluetooth, near you', C.cyan, 200],
+    ['LAN', 'Local Area Network — building or home', C.primary, 260],
+    ['WLAN', 'Wireless LAN — same, no cables', C.violet, 320],
+    ['MAN', 'Metropolitan Area — one city', C.green, 380],
+    ['WAN', 'Wide Area Network — across countries', C.amber, 440],
+    ['Internet', 'Global network of networks — the whole planet', C.purple, 520]
   ];
-  c.push(vtx('nsc_title', TXT(C.white, 17, 1), 250, 16, 300, 26, 'Scale of Networks'));
-  rows.forEach(([abbr, name, desc, col, w], i) => {
-    const y = 62 + i * 62;
+  c.push(vtx('nsc_title', TXT(C.white, 17, 1), 250, 12, 300, 26, 'Scale of Networks'));
+  rows.forEach(([abbr, sub, col, w], i) => {
+    const y = 52 + i * 62;
     c.push(vtx(`nsc_${i}`,
       `rounded=1;whiteSpace=wrap;html=1;fillColor=${C.osiRow};strokeColor=${col};strokeWidth=2;` +
-      `align=left;spacingLeft=18;verticalAlign=middle;fontSize=12;`,
-      400 - w / 2, y, w, 48,
-      `<b><font color="${col}">${abbr}</font></b>&nbsp;&nbsp;&nbsp;${name}`));
-    c.push(vtx(`nsc_d${i}`, TXT(C.dim, 10), 400 - w / 2, y, w, 48, desc));
-    if (i < rows.length - 1) c.push(fl(`nsc_a${i}`, 400, y + 48, 400, y + 62, `endArrow=block;endFill=1;html=1;strokeColor=${C.cyan};strokeWidth=2;`));
+      `align=center;verticalAlign=middle;fontSize=12;`,
+      400 - w / 2, y, w, 52,
+      `<b><font color="${col}">${abbr}</font></b><br/><font size="2">${sub}</font>`));
+    if (i < rows.length - 1) c.push(fl(`nsc_a${i}`, 400, y + 52, 400, y + 62, `endArrow=block;endFill=1;html=1;strokeColor=${C.cyan};strokeWidth=2;`));
   });
   c.push(vtx('nsc_cap', TXT(C.dim, 12), 110, 428, 580, 18, 'Each step connects more devices across larger distances'));
   return page('network-scale', 'nsc', c.join(''));
