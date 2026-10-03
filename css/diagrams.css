@@ -3,17 +3,17 @@
 .diagram-container {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   height: auto;
   aspect-ratio: 800 / 460;
-  min-height: 200px;
-  max-height: min(46vh, 420px);
+  min-height: 260px;
+  max-height: min(60vh, 560px);
   margin: 0 auto;
 }
 /* Two-column layout: the diagram column may use more vertical space */
-.slide-cols .diagram-container { max-height: min(54vh, 480px); }
+.slide-cols .diagram-container { max-height: min(62vh, 600px); }
 /* Title slide: title + subtitle + diagram must share one screen */
-.visual.title-visual .diagram-container { max-height: min(46vh, 440px); }
+.visual.title-visual .diagram-container { max-height: min(56vh, 560px); }
 
 .network-svg {
   width: 100%;
@@ -142,15 +142,15 @@
 
 /* — Height tiers: never let a diagram push a slide past the fold — */
 @media (max-height: 820px) {
-  .diagram-container { max-height: min(40vh, 330px); }
-  .slide-cols .diagram-container { max-height: min(44vh, 360px); }
+  .diagram-container { max-height: min(52vh, 430px); }
+  .slide-cols .diagram-container { max-height: min(54vh, 460px); }
 }
 @media (max-height: 700px) {
-  .diagram-container { max-height: min(32vh, 250px); }
-  .slide-cols .diagram-container { max-height: min(36vh, 280px); }
+  .diagram-container { max-height: min(42vh, 330px); }
+  .slide-cols .diagram-container { max-height: min(46vh, 360px); }
 }
 /* Narrow screens: stacked layout, cap the diagram */
 @media (max-width: 768px) {
-  .diagram-container { max-height: min(34vh, 340px); }
-  .slide-cols .diagram-container { max-height: min(34vh, 340px); }
+  .diagram-container { max-height: min(42vh, 420px); }
+  .slide-cols .diagram-container { max-height: min(42vh, 420px); }
 }

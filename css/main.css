@@ -27,7 +27,7 @@
   --glow-md: 0 0 16px rgba(59, 130, 246, 0.6);
   --glow-lg: 0 0 32px rgba(59, 130, 246, 0.8);
   --slide-padding: calc(56px + 2vh) clamp(24px, 5vw, 72px) calc(52px + 3vh);
-  --slide-max-width: 1200px;
+  --slide-max-width: 1400px;
   --transition-fast: 0.2s ease;
   --transition-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -125,7 +125,7 @@ p.body-text .highlight { color: var(--primary); font-weight: 600; }
 
 /* Two-column layout: text left, diagram right */
 .slide-cols {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
   column-gap: clamp(1.5rem, 3vw, 3rem);
   width: 100%; flex: 1; min-height: 0;
   align-content: center; align-items: center;
